@@ -1,0 +1,75 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Poppins:wght@500;600;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+  
+  body {
+    @apply font-sans text-gray-800 bg-white;
+  }
+  
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-heading font-bold;
+  }
+}
+
+@layer components {
+  .btn {
+    @apply px-6 py-3 rounded-md font-medium transition duration-300 inline-flex items-center justify-center;
+  }
+  
+  .btn-primary {
+    @apply btn bg-accent text-white hover:bg-accent-dark;
+  }
+  
+  .btn-outline {
+    @apply btn border-2 border-white text-white hover:bg-white hover:text-primary;
+  }
+  
+  .btn-secondary {
+    @apply btn bg-primary text-white hover:bg-primary-light;
+  }
+  
+  .section-title {
+    @apply text-3xl md:text-4xl font-bold mb-4 relative;
+  }
+  
+  .section-title::after {
+    content: '';
+    @apply absolute bottom-0 left-0 w-16 h-1 bg-accent mt-2;
+  }
+  
+  .section-title-center {
+    @apply text-3xl md:text-4xl font-bold mb-12 text-center relative;
+  }
+  
+  .section-title-center::after {
+    content: '';
+    @apply absolute bottom-0 left-1/2 transform -translate-x-1/2 w-16 h-1 bg-accent mt-2;
+  }
+  
+  .card {
+    @apply bg-white rounded-lg shadow-card transition duration-300 hover:shadow-card-hover;
+  }
+  
+  .stat-card {
+    @apply card p-6 text-center;
+  }
+  
+  .service-card {
+    @apply card p-8 hover:translate-y-[-5px] transition-all duration-300;
+  }
+  
+  .portfolio-card {
+    @apply card overflow-hidden;
+  }
+  
+  .portfolio-card-content {
+    @apply absolute inset-0 bg-gradient-to-t from-primary/80 to-transparent opacity-0 transition-opacity duration-300 flex flex-col justify-end p-6 text-white;
+  }
+}
