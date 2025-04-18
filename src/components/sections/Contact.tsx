@@ -35,9 +35,9 @@ const Contact: React.FC = () => {
     
     try {
       // Replace these with your own EmailJS service, template and user IDs
-      const emailjsServiceId = 'service_l0v3y2e';
-      const emailjsTemplateId = 'template_me1yhnd';
-      const emailjsUserId = 'BxopExeZ01ZmoQtf7';
+      const emailjsServiceId = process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID || '';
+      const emailjsTemplateId = process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_ID || '';
+      const emailjsUserId = process.env.NEXT_PUBLIC_EMAILJS_USER_ID || '';
       
       await emailjs.send(
         emailjsServiceId,
