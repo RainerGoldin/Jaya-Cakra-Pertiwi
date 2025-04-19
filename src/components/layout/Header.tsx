@@ -44,7 +44,7 @@ const Header: React.FC<HeaderProps> = ({ scrolled }) => {
       <div className="container mx-auto px-4 flex justify-between items-center">
         <div className={`text-xl font-bold ${scrolled ? 'text-primary' : 'text-white bg-white/10 backdrop-blur-sm px-4 py-2 rounded-lg'}`}>
             {scrolled ? (
-              <img src="/public/logo.webp" alt="Jaya Cakra Pertiwii" className="h-16 -my-2" />
+              <img src="/logo.webp" alt="Jaya Cakra Pertiwi" className="h-16 -my-2" />
             ) : (
               <span className="text-2xl">Jaya Cakra Pertiwi</span>
             )}
