@@ -23,7 +23,7 @@ const Portfolio: React.FC = () => {
         </div>
         
         {/* Portfolio Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 w-11/12 mx-auto">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 w-11/12 mx-auto h-[512px]">
           {portfolioItems
             .slice((currentSlide * 6), (currentSlide * 6) + 6)
             .map((item, index) => (
@@ -32,17 +32,19 @@ const Portfolio: React.FC = () => {
           initial={{ opacity: 0, scale: 0.95 }}
           whileInView={{ opacity: 1, scale: 1 }}
           viewport={{ once: true }}
-          className="portfolio-card relative group cursor-pointer"
+          className="portfolio-card relative group cursor-pointer h-64"
           onClick={() => {
             setSelectedImage(item);
             setIsModalOpen(true);
           }}
               >
-          <img 
-            src={item.image} 
-            alt={item.name} 
-            className="w-full h-64 object-cover transition-transform duration-500 group-hover:scale-110"
-          />
+          <div className="w-full h-full overflow-hidden">
+            <img 
+              src={item.image} 
+              alt={item.name} 
+              className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+            />
+          </div>
           <div className="portfolio-card-content group-hover:opacity-100 flex flex-col items-center justify-center">
             <h3 className="text-lg font-semibold">{item.name}</h3>
             <p className="text-gray-200">{item.location}</p>
