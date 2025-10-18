@@ -51,7 +51,7 @@ const Header: React.FC<HeaderProps> = ({ scrolled }) => {
         </div>
         
         {/* Desktop Navigation with consistent background styling */}
-        <nav className="hidden md:flex items-center space-x-8">
+        <nav className="hidden lg:flex items-center space-x-8">
           {menuItems.map(({id, label}) => (
             <a 
               key={id}
@@ -72,7 +72,7 @@ const Header: React.FC<HeaderProps> = ({ scrolled }) => {
         {/* Language Toggle with consistent styling */}
         <button 
           onClick={toggleLanguage}
-          className={`hidden md:flex items-center px-4 py-2 rounded-full transition-all ${
+          className={`hidden lg:flex items-center px-4 py-2 rounded-full transition-all ${
             scrolled 
               ? 'bg-accent/10 text-accent hover:bg-accent hover:text-white' 
               : 'bg-white/10 text-white hover:bg-white/20 backdrop-blur-sm'
@@ -83,7 +83,7 @@ const Header: React.FC<HeaderProps> = ({ scrolled }) => {
           <span className="font-medium">{language.toUpperCase()}</span>
         </button>
         
-        <button className={`hidden md:block ${
+        <button className={`hidden lg:block ${
           scrolled 
             ? 'btn-secondary' 
             : 'bg-white/10 hover:bg-white/20 text-white px-6 py-2 rounded-full backdrop-blur-sm transition-all'
@@ -92,7 +92,7 @@ const Header: React.FC<HeaderProps> = ({ scrolled }) => {
         </button>
         
         {/* Mobile Menu Controls with consistent styling */}
-        <div className="md:hidden flex items-center">
+        <div className="lg:hidden flex items-center">
           <button 
             onClick={toggleLanguage}
             className={`flex items-center justify-center p-2 rounded-full mr-4 ${
@@ -120,7 +120,7 @@ const Header: React.FC<HeaderProps> = ({ scrolled }) => {
       
       {/* Mobile Navigation with transparent background */}
       {isMenuOpen && (
-        <div className={`md:hidden backdrop-blur-sm py-4 px-4 ${
+        <div className={`lg:hidden backdrop-blur-sm py-4 px-4 ${
           scrolled ? 'bg-white/80' : 'bg-black/30'
         }`}>
           <nav className="flex flex-col space-y-4">
