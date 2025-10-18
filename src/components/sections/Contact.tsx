@@ -1,71 +1,9 @@
-import React, { useState } from 'react';
-import { Phone, Mail, ExternalLink, Send, Loader2 } from 'lucide-react';
+import React from 'react';
+import { Phone, Mail, ExternalLink } from 'lucide-react';
 import { useLanguage } from '../../context/LanguageContext';
-import { useForm } from 'react-hook-form';
-import { yupResolver } from '@hookform/resolvers/yup';
-import * as yup from 'yup';
-import emailjs from 'emailjs-com';
-
-// Form schema validation with yup
-const schema = yup.object({
-  name: yup.string().required('Name is required'),
-  email: yup.string().email('Please enter a valid email').required('Email is required'),
-  message: yup.string().required('Message is required').min(10, 'Message must be at least 10 characters')
-}).required();
-
-type FormData = yup.InferType<typeof schema>;
 
 const Contact: React.FC = () => {
   const { t } = useLanguage();
-  const [isSubmitting, setIsSubmitting] = useState(false);
-  const [formStatus, setFormStatus] = useState<{message: string, type: 'success' | 'error'} | null>(null);
-  
-  const { 
-    register, 
-    handleSubmit, 
-    reset,
-    formState: { errors } 
-  } = useForm<FormData>({
-    resolver: yupResolver(schema)
-  });
-
-  const onSubmit = async (data: FormData) => {
-    setIsSubmitting(true);
-    setFormStatus(null);
-    
-    try {
-      // Replace these with your own EmailJS service, template and user IDs
-      const emailjsServiceId = process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID || '';
-      const emailjsTemplateId = process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_ID || '';
-      const emailjsUserId = process.env.NEXT_PUBLIC_EMAILJS_USER_ID || '';
-      
-      await emailjs.send(
-        emailjsServiceId,
-        emailjsTemplateId,
-        {
-          from_name: data.name,
-          reply_to: data.email,
-          subject: 'Contact Form Submission', // Default subject since we removed the field
-          message: data.message
-        },
-        emailjsUserId
-      );
-      
-      setFormStatus({
-        message: t('contact.form.successMessage'),
-        type: 'success'
-      });
-      reset(); // Clear the form
-    } catch (error) {
-      console.error('Email sending failed:', error);
-      setFormStatus({
-        message: t('contact.form.errorMessage'),
-        type: 'error'
-      });
-    } finally {
-      setIsSubmitting(false);
-    }
-  };
 
   return (
     <section id="contact" className="py-20 bg-primary text-white">
@@ -97,86 +35,7 @@ const Contact: React.FC = () => {
                 </div>
               </div>
             </div>
-            
-            {/* Contact Form */}
-            <div className="mt-10">
-              <h3 className="text-xl font-bold mb-6">{t('contact.form.title') || 'Send Us a Message'}</h3>
-              
-              {/* Status Message */}
-              {formStatus && (
-                <div className={`p-4 rounded mb-6 ${formStatus.type === 'success' ? 'bg-green-700' : 'bg-red-700'}`}>
-                  {formStatus.message}
-                </div>
-              )}
-              
-              <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
-                <div>
-                  <label htmlFor="name" className="block mb-2 text-sm font-medium">
-                    {t('contact.form.name')}
-                  </label>
-                  <input
-                    id="name"
-                    type="text"
-                    className={`w-full p-3 bg-primary-light border ${errors.name ? 'border-red-500' : 'border-gray-600'} rounded-lg focus:ring-accent focus:border-accent text-white`}
-                    placeholder={t('contact.form.namePlaceholder') || 'Your name'}
-                    {...register('name')}
-                  />
-                  {errors.name && (
-                    <p className="mt-1 text-red-400 text-sm">{errors.name.message}</p>
-                  )}
-                </div>
-                
-                <div>
-                  <label htmlFor="email" className="block mb-2 text-sm font-medium">
-                    {t('contact.form.email')}
-                  </label>
-                  <input
-                    id="email"
-                    type="email"
-                    className={`w-full p-3 bg-primary-light border ${errors.email ? 'border-red-500' : 'border-gray-600'} rounded-lg focus:ring-accent focus:border-accent text-white`}
-                    placeholder={t('contact.form.emailPlaceholder') || 'your.email@example.com'}
-                    {...register('email')}
-                  />
-                  {errors.email && (
-                    <p className="mt-1 text-red-400 text-sm">{errors.email.message}</p>
-                  )}
-                </div>
-                
-                <div>
-                  <label htmlFor="message" className="block mb-2 text-sm font-medium">
-                    {t('contact.form.message')}
-                  </label>
-                  <textarea
-                    id="message"
-                    rows={5}
-                    className={`w-full p-3 bg-primary-light border ${errors.message ? 'border-red-500' : 'border-gray-600'} rounded-lg focus:ring-accent focus:border-accent text-white`}
-                    placeholder={t('contact.form.messagePlaceholder') || 'Your message'}
-                    {...register('message')}
-                  ></textarea>
-                  {errors.message && (
-                    <p className="mt-1 text-red-400 text-sm">{errors.message.message}</p>
-                  )}
-                </div>
-                
-                <button
-                  type="submit"
-                  disabled={isSubmitting}
-                  className="inline-flex items-center justify-center bg-accent text-white px-6 py-3 rounded-lg font-medium hover:bg-accent-dark transition-colors disabled:opacity-70"
-                >
-                  {isSubmitting ? (
-                    <>
-                      <Loader2 size={20} className="mr-2 animate-spin" />
-                      {t('contact.form.sending') || 'Sending...'}
-                    </>
-                  ) : (
-                    <>
-                      <Send size={20} className="mr-2" />
-                      {t('contact.form.send') || 'Send Message'}
-                    </>
-                  )}
-                </button>
-              </form>
-            </div>
+
           </div>
           
           {/* Location */}

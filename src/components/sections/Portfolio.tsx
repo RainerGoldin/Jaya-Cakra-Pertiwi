@@ -23,38 +23,38 @@ const Portfolio: React.FC = () => {
         </div>
         
         {/* Portfolio Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 w-11/12 mx-auto h-[512px]">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-6 w-full md:w-11/12 mx-auto h-auto md:h-[750px]">
           {portfolioItems
             .slice((currentSlide * 6), (currentSlide * 6) + 6)
             .map((item, index) => (
               <motion.div 
-          key={index}
-          initial={{ opacity: 0, scale: 0.95 }}
-          whileInView={{ opacity: 1, scale: 1 }}
-          viewport={{ once: true }}
-          className="portfolio-card relative group cursor-pointer h-64"
-          onClick={() => {
-            setSelectedImage(item);
-            setIsModalOpen(true);
-          }}
+                key={index}
+                initial={{ opacity: 0, scale: 0.95 }}
+                whileInView={{ opacity: 1, scale: 1 }}
+                viewport={{ once: true }}
+                className="portfolio-card relative group cursor-pointer h-64"
+                onClick={() => {
+                  setSelectedImage(item);
+                  setIsModalOpen(true);
+                }}
               >
-          <div className="w-full h-full overflow-hidden">
-            <img 
-              src={item.image} 
-              alt={item.name} 
-              className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
-            />
-          </div>
-          <div className="portfolio-card-content group-hover:opacity-100 flex flex-col items-center justify-center">
-            <h3 className="text-lg font-semibold">{item.name}</h3>
-            <p className="text-gray-200">{item.location}</p>
-            <span className="mt-2 px-3 py-1 bg-black bg-opacity-60 text-white text-sm rounded-full flex items-center">
-              <svg className="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
-              </svg>
-              Click to zoom
-            </span>
-          </div>
+                <div className="w-full h-full overflow-hidden rounded-lg">
+                  <img 
+                    src={item.image} 
+                    alt={item.name} 
+                    className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+                  />
+                </div>
+                <div className="portfolio-card-content group-hover:opacity-100 flex flex-col items-center justify-center">
+                  <h3 className="text-base md:text-lg font-semibold text-center px-2">{item.name}</h3>
+                  <p className="text-sm md:text-base text-gray-200">{item.location}</p>
+                  <span className="mt-2 px-3 py-1 bg-black bg-opacity-60 text-white text-xs md:text-sm rounded-full flex items-center">
+                    <svg className="w-3 h-3 md:w-4 md:h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                    </svg>
+                    Click to zoom
+                  </span>
+                </div>
               </motion.div>
             ))}
         </div>
@@ -67,10 +67,10 @@ const Portfolio: React.FC = () => {
           >
             <div 
               className="relative bg-transparent"
-              onClick={(e) => e.stopPropagation()} // Prevent closing when clicking the container
+              onClick={(e) => e.stopPropagation()}
             >
               <button 
-                className="absolute -top-10 right-0 text-white hover:text-accent"
+                className="absolute -top-8 md:-top-10 right-0 text-white hover:text-accent transition"
                 onClick={() => setIsModalOpen(false)}
               >
                 <X size={24} />
@@ -78,24 +78,24 @@ const Portfolio: React.FC = () => {
               <img 
                 src={selectedImage.image} 
                 alt={selectedImage.name} 
-                className="max-h-[90vh] w-auto object-contain" // Show true size with max height constraint
+                className="max-h-[85vh] md:max-h-[90vh] w-auto object-contain rounded-lg" 
               />
-              <div className="bg-black bg-opacity-75 text-white p-4 rounded-b-lg">
-                <h3 className="text-xl font-semibold">{selectedImage.name}</h3>
-                <p className="text-gray-300">{selectedImage.location}</p>
+              <div className="bg-black bg-opacity-75 text-white p-3 md:p-4 rounded-b-lg mt-2">
+                <h3 className="text-lg md:text-xl font-semibold">{selectedImage.name}</h3>
+                <p className="text-gray-300 text-sm md:text-base">{selectedImage.location}</p>
               </div>
             </div>
           </div>
         )}
         
         {/* Navigation Buttons */}
-        <div className="flex justify-center items-center mt-12 space-x-4">
+        <div className="flex justify-center items-center mt-8 md:mt-12 space-x-2 md:space-x-4 flex-wrap gap-2">
           <button 
             onClick={() => setCurrentSlide(prev => Math.max(0, prev - 1))}
-            className="p-2 rounded-full border border-gray-300 hover:bg-gray-100"
+            className="p-2 rounded-full border border-gray-300 hover:bg-gray-100 transition"
             disabled={currentSlide === 0}
           >
-            <ChevronLeft size={24} className={currentSlide === 0 ? 'text-gray-300' : 'text-gray-600'} />
+            <ChevronLeft size={20} className={currentSlide === 0 ? 'text-gray-300' : 'text-gray-600'} />
           </button>
           
           {/* Page Numbers */}
@@ -103,7 +103,7 @@ const Portfolio: React.FC = () => {
             <button
               key={index}
               onClick={() => setCurrentSlide(index)}
-              className={`w-10 h-10 rounded-full flex items-center justify-center transition
+              className={`w-8 h-8 md:w-10 md:h-10 rounded-full flex items-center justify-center transition text-sm md:text-base
                 ${currentSlide === index 
                   ? 'bg-accent text-white' 
                   : 'border border-gray-300 hover:bg-gray-100'
@@ -115,10 +115,10 @@ const Portfolio: React.FC = () => {
           
           <button 
             onClick={() => setCurrentSlide(prev => Math.min(Math.ceil(portfolioItems.length / 6) - 1, prev + 1))}
-            className="p-2 rounded-full border border-gray-300 hover:bg-gray-100"
+            className="p-2 rounded-full border border-gray-300 hover:bg-gray-100 transition"
             disabled={currentSlide === Math.ceil(portfolioItems.length / 6) - 1}
           >
-            <ChevronRight size={24} className={currentSlide === Math.ceil(portfolioItems.length / 6) - 1 ? 'text-gray-300' : 'text-gray-600'} />
+            <ChevronRight size={20} className={currentSlide === Math.ceil(portfolioItems.length / 6) - 1 ? 'text-gray-300' : 'text-gray-600'} />
           </button>
         </div>
       </div>
